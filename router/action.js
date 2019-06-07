@@ -5,7 +5,7 @@ const db = knex(knexConfig.development);
 
 router.get("/", (req, res) => {
 
-    db("project")
+    db("action")
       .then(pro => {
         res.status(200).json(pro);
       })
@@ -15,7 +15,8 @@ router.get("/", (req, res) => {
   });
 
   router.post('/', (req, res) => {
-    db('project')
+      console.log('here')
+    db('action')
         .insert(req.body)
         .then(result => {
             res.json(result)
@@ -27,7 +28,7 @@ router.get("/", (req, res) => {
 })
 
 router.put("/:id", (req, res) => {
-    db("project")
+    db("action")
       .where({ id: req.params.id })
       .update(req.body)
       .then(count => {
@@ -45,13 +46,13 @@ router.put("/:id", (req, res) => {
   });
 
 router.delete("/:id", (req, res) => {
-    db("project")
+    db("action")
       .where({ id: req.params.id })
       .del()
       .then(count => {
         if (count > 0) {
           res.status(200).json({
-            message: `${count} ${count > 1 ? "project" :"project"} deleted`
+            message: `${count} ${count > 1 ? "action" :"action"} deleted`
           });
         } else {
           res.status(404).json({ message: "no such project exists" });
@@ -63,7 +64,7 @@ router.delete("/:id", (req, res) => {
   });
  
   router.get("/:id", (req, res) => {
-    db("project")
+    db("action")
       .where({ id: req.params.id })
       .first()
       .then(project => {
